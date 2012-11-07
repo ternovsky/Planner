@@ -12,6 +12,7 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
@@ -33,10 +34,10 @@ public class XmlHelper {
     public static final String DISTANCE = "distance";
     public static final String SHOPPING_LIST = "shoppingList";
 
-    public static void readShops(String fileName, Planner planner)
+    public static void readShops(File file, Planner planner)
             throws FileNotFoundException, XMLStreamException {
 
-        XMLStreamReader xmlStreamReader = XMLInputFactory.newInstance().createXMLStreamReader(new FileReader(fileName));
+        XMLStreamReader xmlStreamReader = XMLInputFactory.newInstance().createXMLStreamReader(new FileReader(file));
         ObjectStorage objectStorage = planner.getObjectStorage();
         Shop shop = new Shop();
         while (xmlStreamReader.hasNext()) {
@@ -72,10 +73,10 @@ public class XmlHelper {
         xmlStreamReader.close();
     }
 
-    public static void readShoppingList(String fileName, Planner planner)
+    public static void readShoppingList(File file, Planner planner)
             throws FileNotFoundException, XMLStreamException {
 
-        XMLStreamReader xmlStreamReader = XMLInputFactory.newInstance().createXMLStreamReader(new FileReader(fileName));
+        XMLStreamReader xmlStreamReader = XMLInputFactory.newInstance().createXMLStreamReader(new FileReader(file));
         ShoppingList shoppingList = new ShoppingList();
         while (xmlStreamReader.hasNext()) {
             if (xmlStreamReader.getEventType() == XMLStreamConstants.START_ELEMENT) {

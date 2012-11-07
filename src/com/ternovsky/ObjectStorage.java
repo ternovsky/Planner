@@ -17,11 +17,16 @@ public class ObjectStorage {
     private Map<String, Shop> lowCostProductCodeShop;
     private Map<String, Product> lowCostProductCodeProduct;
     private Map<String, Set<Shop>> productCodeShop;
+    private Set<String> availableProductCodes;
 
     public ObjectStorage() {
         lowCostProductCodeShop = new HashMap<String, Shop>();
         lowCostProductCodeProduct = new HashMap<String, Product>();
         productCodeShop = new HashMap<String, Set<Shop>>();
+    }
+
+    public Set<String> orderedProductCodes() {
+        return new TreeSet<String>(productCodeShop.keySet());
     }
 
     public void add(Shop shop, Product product) {

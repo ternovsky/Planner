@@ -6,6 +6,7 @@ import com.ternovsky.logic.MinDistanceAlgorithm;
 import com.ternovsky.xml.XmlHelper;
 
 import javax.xml.stream.XMLStreamException;
+import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
@@ -34,8 +35,8 @@ public class Planner {
     }
 
     public void readData(String shopsXml, String shoppingListXml) throws XMLStreamException, FileNotFoundException {
-        XmlHelper.readShoppingList(shoppingListXml, this);
-        XmlHelper.readShops(shopsXml, this);
+        XmlHelper.readShoppingList(new File(shoppingListXml), this);
+        XmlHelper.readShops(new File(shopsXml), this);
     }
 
     public void buildShoppingPlan() {

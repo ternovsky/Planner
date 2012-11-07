@@ -1,6 +1,10 @@
 package com.ternovsky;
 
+import com.ternovsky.gui.MainFrame;
+
+import javax.swing.*;
 import javax.xml.stream.XMLStreamException;
+import java.awt.*;
 import java.io.FileNotFoundException;
 
 /**
@@ -17,7 +21,14 @@ public class Main {
 
     public static void main(String[] args) throws XMLStreamException, FileNotFoundException {
         if (args.length == 0) {
-
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    MainFrame mainFrame = new MainFrame();
+                    mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    mainFrame.setVisible(true);
+                }
+            });
         } else {
             Planner planner = new Planner();
             planner.readData(SHOPS_XML, SHOPPING_LIST_XML);
