@@ -3,9 +3,7 @@ package com.ternovsky;
 import com.ternovsky.domain.Product;
 import com.ternovsky.domain.Shop;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,10 +16,12 @@ public class ObjectStorage {
 
     private Map<String, Shop> lowCostProductCodeShop;
     private Map<String, Product> lowCostProductCodeProduct;
+    private Map<String, Set<Shop>> productCodeShop;
 
     public ObjectStorage() {
         lowCostProductCodeShop = new HashMap<String, Shop>();
         lowCostProductCodeProduct = new HashMap<String, Product>();
+        productCodeShop = new HashMap<String, Set<Shop>>();
     }
 
     public void add(Shop shop, Product product) {
@@ -30,6 +30,14 @@ public class ObjectStorage {
         if (lowCostProduct == null || lowCostProduct.getPrice() > product.getPrice()) {
             lowCostProductCodeProduct.put(productCode, product);
             lowCostProductCodeShop.put(productCode, shop);
+        }
+        Set<Shop> shops = productCodeShop.get(productCode);
+        if (shops == null) {
+            shops = new HashSet<Shop>();
+            shops.add(shop);
+            productCodeShop.put(productCode, shops);
+        } else {
+            shops.add(shop);
         }
     }
 
@@ -41,8 +49,18 @@ public class ObjectStorage {
         return lowCostProductCodeProduct.get(productCode);
     }
 
-    public void clear() {
-        lowCostProductCodeProduct.clear();
-        lowCostProductCodeShop.clear();
+    public TreeSet<String> getOrderedProductCodes() {
+        TreeSet<String> orderedProductCodes = new TreeSet<String>(new Comparator<String>() {
+            @Override
+            public int compare(String productCode1, String productCode2) {
+                return productCodeShop.get(productCode1).size() > productCodeShop.get(productCode2).size() ? 1 : -1;
+            }
+        });
+        orderedProductCodes.addAll(productCodeShop.keySet());
+        return orderedProductCodes;
+    }
+
+    public Set<Shop> getShops(String productCode) {
+        return productCodeShop.get(productCode);
     }
 }

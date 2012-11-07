@@ -2,6 +2,7 @@ package com.ternovsky;
 
 import com.ternovsky.domain.ShoppingList;
 import com.ternovsky.logic.MinCostAlgorithm;
+import com.ternovsky.logic.MinDistanceAlgorithm;
 import com.ternovsky.xml.XmlHelper;
 
 import javax.xml.stream.XMLStreamException;
@@ -40,9 +41,10 @@ public class Planner {
     public void buildShoppingPlan() {
         ShoppingList.OptimizationParameter optimizationParameter = plannerContext.getShoppingList().getOptimizationParameter();
         if (optimizationParameter == ShoppingList.OptimizationParameter.COST) {
-            (new MinCostAlgorithm(this)).buildShoppingPlan();
+            MinCostAlgorithm algorithm = new MinCostAlgorithm(this);
         } else if (optimizationParameter == ShoppingList.OptimizationParameter.DISTANCE) {
-
+            MinDistanceAlgorithm algorithm = new MinDistanceAlgorithm(this);
+            algorithm.buildShoppingPlan();
         }
     }
 }

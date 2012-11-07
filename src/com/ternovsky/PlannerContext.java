@@ -22,7 +22,6 @@ public class PlannerContext {
 
     public PlannerContext() {
         shops = new HashSet<Shop>();
-        shoppingPlan = new ShoppingPlan();
     }
 
     public Set<Shop> getShops() {

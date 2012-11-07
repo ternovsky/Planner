@@ -16,8 +16,8 @@ public class ShoppingPlan {
     private List<Shop> shops;
     private Map<Shop, Set<Product>> shopProducts;
 
-    public ShoppingPlan() {
-        shops = new ArrayList<Shop>();
+    public ShoppingPlan(int shopCount) {
+        shops = new ArrayList<Shop>(shopCount);
         shopProducts = new HashMap<Shop, Set<Product>>();
     }
 

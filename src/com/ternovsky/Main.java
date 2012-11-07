@@ -12,8 +12,8 @@ import java.io.FileNotFoundException;
  */
 public class Main {
 
-    public static final String SHOPS_XML = "D:\\олимпиада\\Planner\\src\\shops.xml";
-    public static final String SHOPPING_LIST_XML = "D:\\олимпиада\\Planner\\src\\shopping-list.xml";
+    public static final String SHOPS_XML = "C:\\Users\\ternovsky\\Documents\\GitHub\\Planner\\src\\shops.xml";
+    public static final String SHOPPING_LIST_XML = "C:\\Users\\ternovsky\\Documents\\GitHub\\Planner\\src\\shopping-list.xml";
 
     public static void main(String[] args) throws XMLStreamException, FileNotFoundException {
         Planner planner = new Planner();
