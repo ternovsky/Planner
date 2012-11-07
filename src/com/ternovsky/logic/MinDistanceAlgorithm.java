@@ -79,19 +79,17 @@ public class MinDistanceAlgorithm {
         int totalDistance = 0;
         while (!necessaryShops.isEmpty()) {
             Map<Shop, Integer> shopDistanceMap = nearestShopDistance(currentCoordinates, necessaryShops);
+            Set<Product> shoppingListProducts = new HashSet<Product>(shoppingList.getProducts());
             Shop shop = shopDistanceMap.keySet().iterator().next();
             for (Product product : shop.getProducts()) {
-                Set<Product> shoppingListProducts = new HashSet<Product>(shoppingList.getProducts());
-                if (shoppingListProducts.contains(product)) {
+                if (!shoppingListProducts.isEmpty() && shoppingListProducts.contains(product)) {
                     totalCost += product.getPrice();
                     shoppingPlan.addShopProduct(shop, product);
                     shoppingListProducts.remove(product);
-                } else {
-                    continue;
                 }
-                shoppingPlan.addShop(shop);
-                totalDistance += shopDistanceMap.get(shop);
             }
+            shoppingPlan.addShop(shop);
+            totalDistance += shopDistanceMap.get(shop);
             currentCoordinates = shop.getCoordinates();
             necessaryShops.remove(shop);
         }

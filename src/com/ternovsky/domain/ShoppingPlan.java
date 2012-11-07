@@ -29,8 +29,11 @@ public class ShoppingPlan {
         Set<Product> products = shopProducts.get(shop);
         if (products == null) {
             products = new HashSet<Product>();
+            products.add(product);
+            shopProducts.put(shop, products);
+        } else {
+            products.add(product);
         }
-        shopProducts.put(shop, products);
     }
 
     public Coordinates getCoordinates() {

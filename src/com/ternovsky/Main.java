@@ -16,8 +16,12 @@ public class Main {
     public static final String SHOPPING_LIST_XML = "C:\\Users\\ternovsky\\Documents\\GitHub\\Planner\\src\\shopping-list.xml";
 
     public static void main(String[] args) throws XMLStreamException, FileNotFoundException {
-        Planner planner = new Planner();
-        planner.readData(SHOPS_XML, SHOPPING_LIST_XML);
-        planner.buildShoppingPlan();
+        if (args.length == 0) {
+
+        } else {
+            Planner planner = new Planner();
+            planner.readData(SHOPS_XML, SHOPPING_LIST_XML);
+            planner.buildShoppingPlan();
+        }
     }
 }

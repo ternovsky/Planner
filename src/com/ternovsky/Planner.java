@@ -42,6 +42,7 @@ public class Planner {
         ShoppingList.OptimizationParameter optimizationParameter = plannerContext.getShoppingList().getOptimizationParameter();
         if (optimizationParameter == ShoppingList.OptimizationParameter.COST) {
             MinCostAlgorithm algorithm = new MinCostAlgorithm(this);
+            algorithm.buildShoppingPlan();
         } else if (optimizationParameter == ShoppingList.OptimizationParameter.DISTANCE) {
             MinDistanceAlgorithm algorithm = new MinDistanceAlgorithm(this);
             algorithm.buildShoppingPlan();
