@@ -3,18 +3,10 @@ package com.ternovsky.xml;
 import com.ternovsky.ObjectStorage;
 import com.ternovsky.Planner;
 import com.ternovsky.PlannerContext;
-import com.ternovsky.domain.Coordinates;
-import com.ternovsky.domain.Product;
-import com.ternovsky.domain.Shop;
-import com.ternovsky.domain.ShoppingList;
+import com.ternovsky.domain.*;
 
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import javax.xml.stream.*;
+import java.io.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,6 +25,14 @@ public class XmlHelper {
     public static final String COST = "cost";
     public static final String DISTANCE = "distance";
     public static final String SHOPPING_LIST = "shoppingList";
+    public static final String SHOPPING_PLAN = "shoppingPlan";
+    public static final String TOTALS = "totals";
+    public static final String SHOPS = "shops";
+    public static final String ID = "id";
+    public static final String CODE = "code";
+    public static final String ENCODING = "UTF-8";
+    public static final String VERSION = "1.0";
+    public static final String DTD = "<!DOCTYPE shoppingPlan SYSTEM \"shopping-plan.dtd\">";
 
     public static void readShops(File file, Planner planner)
             throws FileNotFoundException, XMLStreamException {
@@ -106,5 +106,67 @@ public class XmlHelper {
             xmlStreamReader.next();
         }
         xmlStreamReader.close();
+    }
+
+    public static void writeShoppingPlan(File file, Planner planner) throws XMLStreamException, IOException {
+        ShoppingPlan shoppingPlan = planner.getPlannerContext().getShoppingPlan();
+
+        FileWriter fileWriter = new FileWriter(file);
+        XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
+        XMLStreamWriter writer = xmlOutputFactory.createXMLStreamWriter(fileWriter);
+        writer.writeStartDocument(ENCODING, VERSION);
+        writer.writeCharacters("\n");
+        writer.writeDTD(DTD);
+        writer.writeCharacters("\n");
+        writer.writeStartElement(SHOPPING_PLAN);
+        writer.writeCharacters("\n");
+        writer.writeEmptyElement(COORDINATES);
+        writer.writeAttribute("x", String.valueOf(shoppingPlan.getCoordinates().getX()));
+        writer.writeAttribute("y", String.valueOf(shoppingPlan.getCoordinates().getY()));
+        writer.writeCharacters("\n");
+        writer.writeStartElement(TOTALS);
+        writer.writeCharacters("\n");
+        writer.writeStartElement(COST);
+        writer.writeCharacters(String.valueOf(shoppingPlan.getCost()));
+        writer.writeEndElement(); //COST
+        writer.writeCharacters("\n");
+        writer.writeStartElement(DISTANCE);
+        writer.writeCharacters(String.valueOf(shoppingPlan.getDistance()));
+        writer.writeEndElement(); //DISTANCE
+        writer.writeCharacters("\n");
+        writer.writeEndElement(); //TOTALS
+        writer.writeCharacters("\n");
+        writer.writeStartElement(SHOPS);
+        writer.writeCharacters("\n");
+        for (Shop shop : shoppingPlan.getShops()) {
+            writer.writeStartElement(SHOP);
+            writer.writeAttribute(ID, shop.getId());
+            writer.writeCharacters("\n");
+            writer.writeStartElement(NAME);
+            writer.writeCharacters(shop.getName());
+            writer.writeEndElement(); //NAME
+            writer.writeCharacters("\n");
+            writer.writeStartElement(PRODUCTS);
+            writer.writeCharacters("\n");
+            for (Product product : shoppingPlan.getProductsByShop(shop)) {
+                writer.writeStartElement(PRODUCT);
+                writer.writeAttribute(CODE, product.getCode());
+                writer.writeCharacters(product.getName());
+                writer.writeEndElement(); //PRODUCT
+                writer.writeCharacters("\n");
+            }
+            writer.writeEndElement(); //PRODUCTS
+            writer.writeCharacters("\n");
+            writer.writeEndElement(); //SHOP
+            writer.writeCharacters("\n");
+        }
+        writer.writeEndElement(); //SHOPS
+        writer.writeCharacters("\n");
+        writer.writeEndElement(); //SHOPPING_PLAN
+        writer.writeCharacters("\n");
+        writer.writeEndDocument();
+        writer.close();
+
+        fileWriter.close();
     }
 }

@@ -5,7 +5,7 @@ import com.ternovsky.gui.MainFrame;
 import javax.swing.*;
 import javax.xml.stream.XMLStreamException;
 import java.awt.*;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,14 +18,15 @@ public class Main {
 
     public static final String SHOPS_XML = "C:\\Users\\ternovsky\\Documents\\GitHub\\Planner\\src\\shops.xml";
     public static final String SHOPPING_LIST_XML = "C:\\Users\\ternovsky\\Documents\\GitHub\\Planner\\src\\shopping-list.xml";
+    public static final String SHOPPING_PLAN_XML = "C:\\Users\\ternovsky\\Documents\\GitHub\\Planner\\shopping-plan.xml";
 
-    public static void main(String[] args) throws XMLStreamException, FileNotFoundException {
+    public static void main(String[] args) throws XMLStreamException, IOException {
         if (args.length == 0) {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     MainFrame mainFrame = new MainFrame();
-                    mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                     mainFrame.setVisible(true);
                 }
             });
@@ -33,6 +34,7 @@ public class Main {
             Planner planner = new Planner();
             planner.readData(SHOPS_XML, SHOPPING_LIST_XML);
             planner.buildShoppingPlan();
+            planner.writeData(SHOPPING_PLAN_XML);
         }
     }
 }

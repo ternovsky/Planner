@@ -8,6 +8,7 @@ import com.ternovsky.xml.XmlHelper;
 import javax.xml.stream.XMLStreamException;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -37,6 +38,10 @@ public class Planner {
     public void readData(String shopsXml, String shoppingListXml) throws XMLStreamException, FileNotFoundException {
         XmlHelper.readShoppingList(new File(shoppingListXml), this);
         XmlHelper.readShops(new File(shopsXml), this);
+    }
+
+    public void writeData(String shoppingPlanXml) throws XMLStreamException, IOException {
+        XmlHelper.writeShoppingPlan(new File(shoppingPlanXml), this);
     }
 
     public void buildShoppingPlan() {
