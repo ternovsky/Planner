@@ -59,4 +59,12 @@ public class ShoppingPlan {
     public void setDistance(float distance) {
         this.distance = distance;
     }
+
+    public List<Shop> getShops() {
+        return shops;
+    }
+
+    public Set<Product> getProductsByShop(Shop shop) {
+        return shopProducts.get(shop);
+    }
 }

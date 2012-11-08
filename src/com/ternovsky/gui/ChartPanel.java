@@ -3,9 +3,14 @@ package com.ternovsky.gui;
 import com.ternovsky.Planner;
 import com.ternovsky.domain.Coordinates;
 import com.ternovsky.domain.Shop;
+import com.ternovsky.domain.ShoppingList;
+import com.ternovsky.domain.ShoppingPlan;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static java.lang.Math.abs;
 
@@ -27,6 +32,7 @@ public class ChartPanel extends JPanel {
     private int shift;
     private double coefficient;
     private ChartPoint initialChartPoint;
+    private Set<ArrowComponent> arrowComponents = new HashSet<ArrowComponent>();
 
     public ChartPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
@@ -91,8 +97,38 @@ public class ChartPanel extends JPanel {
 
     protected void changeInitialCoordinates() {
         if (initialChartPoint != null) {
+            arrowComponents.clear();
             removeAll();
             showChart();
         }
+    }
+
+    protected void showPath() {
+        arrowComponents.clear();
+        ShoppingPlan shoppingPlan = planner.getPlannerContext().getShoppingPlan();
+        ShoppingList shoppingList = planner.getPlannerContext().getShoppingList();
+        List<Shop> shops = shoppingPlan.getShops();
+        Coordinates initialCoordinates = convertToNewCoordinates(shoppingList.getCoordinates());
+        Coordinates prevCoordinates = initialCoordinates;
+        for (Shop shop : shops) {
+            Coordinates shopCoordinates = convertToNewCoordinates(shop.getCoordinates());
+            ArrowComponent arrowComponent = new ArrowComponent(prevCoordinates, shopCoordinates);
+            arrowComponents.add(arrowComponent);
+            add(arrowComponent);
+            prevCoordinates = convertToNewCoordinates(shop.getCoordinates());
+        }
+        ArrowComponent arrowComponent = new ArrowComponent(prevCoordinates, initialCoordinates);
+        arrowComponents.add(arrowComponent);
+        add(arrowComponent);
+        repaint();
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        for (ArrowComponent arrowComponent : arrowComponents) {
+            arrowComponent.paintComponent(g);
+        }
+        repaint();
     }
 }

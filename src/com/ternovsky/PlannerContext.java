@@ -48,4 +48,6 @@ public class PlannerContext {
     public void setShoppingPlan(ShoppingPlan shoppingPlan) {
         this.shoppingPlan = shoppingPlan;
     }
+
+
 }

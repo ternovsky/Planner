@@ -2,7 +2,9 @@ package com.ternovsky.gui;
 
 import com.ternovsky.Planner;
 import com.ternovsky.domain.Coordinates;
+import com.ternovsky.domain.Product;
 import com.ternovsky.domain.ShoppingList;
+import com.ternovsky.domain.ShoppingPlan;
 import com.ternovsky.xml.XmlHelper;
 
 import javax.swing.*;
@@ -15,6 +17,8 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,6 +31,10 @@ public class ControlPanel extends JPanel {
 
     public static final int WIDTH = 300;
     public static final int HEIGHT = 700;
+    public static final String MIN_DISTANCE = "Минимизировать проходимое расстояние";
+    public static final String MIN_COST = "Минимизировать стоимость покупки";
+    public static final String ONLY_INTEGER_MESSAGE = "В качестве координат допустимо использовать только целые числа";
+    public static final String PRODUCT_REQUIRED_MESSAGE = "Загрузите список магазинов и выберите хотя бы один продукт";
     protected Planner planner;
     protected JButton shopsJButton;
     protected JFileChooser shopsJFileChooser;
@@ -37,13 +45,18 @@ public class ControlPanel extends JPanel {
     private ShoppingList shoppingList;
     private final JTextField xJTextField;
     private final JTextField yJTextField;
+    private final JRadioButton minCostJRadioButton;
+    private final JRadioButton minDistanceJRadioButton;
+    private final ButtonGroup purposeButtonGroup;
+    private final JLabel costJLabel;
+    private final JLabel distanceJLabel;
 
     public ControlPanel(final MainFrame mainFrame) {
         shoppingList = new ShoppingList();
         this.mainFrame = mainFrame;
         planner = this.mainFrame.planner;
         setSize(WIDTH, HEIGHT);
-        setLayout(new FlowLayout(FlowLayout.CENTER));
+        setLayout(new FlowLayout(FlowLayout.LEFT));
 
         shopsJButton = new JButton();
         shopsJButton.setText("Загрузить список магазинов из файла");
@@ -70,11 +83,13 @@ public class ControlPanel extends JPanel {
         add(shopsJButton);
 
         productCodesJList = new JList();
+        productCodesJList.setMinimumSize(new Dimension(200, 200));
         add(new JScrollPane(productCodesJList));
 
         JLabel coordinatesJLabel = new JLabel();
         coordinatesJLabel.setText("Начальная точка");
         add(coordinatesJLabel);
+
         JPanel coordinatesJPanel = new JPanel(new GridLayout(2, 2));
         coordinatesJPanel.add(new JLabel("x: "));
         xJTextField = new JTextField(0);
@@ -85,13 +100,15 @@ public class ControlPanel extends JPanel {
 
             @Override
             public void focusLost(FocusEvent e) {
-                int x = convertToInteger(xJTextField.getText());
-                if (prevX != x) {
-                    int y = convertToInteger(yJTextField.getText());
-                    shoppingList.setCoordinates(new Coordinates(x, y));
-                    planner.getPlannerContext().setShoppingList(shoppingList);
-                    mainFrame.chartPanel.changeInitialCoordinates();
-                    prevX = x;
+                Integer x = convertToInteger(xJTextField.getText());
+                if (x != null && prevX != x) {
+                    Integer y = convertToInteger(yJTextField.getText());
+                    if (y != null) {
+                        shoppingList.setCoordinates(new Coordinates(x, y));
+                        planner.getPlannerContext().setShoppingList(shoppingList);
+                        mainFrame.chartPanel.changeInitialCoordinates();
+                        prevX = x;
+                    }
                 }
             }
         });
@@ -105,13 +122,15 @@ public class ControlPanel extends JPanel {
 
             @Override
             public void focusLost(FocusEvent e) {
-                int y = convertToInteger(yJTextField.getText());
-                if (prevY != y) {
-                    int x = convertToInteger(xJTextField.getText());
-                    shoppingList.setCoordinates(new Coordinates(x, y));
-                    planner.getPlannerContext().setShoppingList(shoppingList);
-                    mainFrame.chartPanel.changeInitialCoordinates();
-                    prevY = y;
+                Integer y = convertToInteger(yJTextField.getText());
+                if (y != null && prevY != y) {
+                    Integer x = convertToInteger(xJTextField.getText());
+                    if (x != null) {
+                        shoppingList.setCoordinates(new Coordinates(x, y));
+                        planner.getPlannerContext().setShoppingList(shoppingList);
+                        mainFrame.chartPanel.changeInitialCoordinates();
+                        prevY = y;
+                    }
                 }
             }
         });
@@ -119,26 +138,74 @@ public class ControlPanel extends JPanel {
         add(coordinatesJPanel);
 
         buttonGroupJPanel = new JPanel(new GridLayout(2, 1));
-        ButtonGroup purposeButtonGroup = new ButtonGroup();
-        JRadioButton minCostJRadioButton = new JRadioButton("Минимизировать стоимость покупки");
+        purposeButtonGroup = new ButtonGroup();
+        minCostJRadioButton = new JRadioButton(MIN_COST);
         purposeButtonGroup.add(minCostJRadioButton);
         buttonGroupJPanel.add(minCostJRadioButton);
         minCostJRadioButton.setSelected(true);
-        JRadioButton minDistanceJRadioButton = new JRadioButton("Минимизировать проходимое расстояние");
+        minDistanceJRadioButton = new JRadioButton(MIN_DISTANCE);
         purposeButtonGroup.add(minDistanceJRadioButton);
         buttonGroupJPanel.add(minDistanceJRadioButton);
         add(buttonGroupJPanel);
 
         buildShoppingPlanJButton = new JButton();
         buildShoppingPlanJButton.setText("Построить маршрут");
+        buildShoppingPlanJButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                buildShoppingList();
+                planner.buildShoppingPlan();
+                mainFrame.chartPanel.showPath();
+                ShoppingPlan shoppingPlan = planner.getPlannerContext().getShoppingPlan();
+                costJLabel.setText(String.valueOf(shoppingPlan.getCost()));
+                distanceJLabel.setText(String.valueOf(shoppingPlan.getDistance()));
+            }
+        });
         add(buildShoppingPlanJButton);
+
+        JPanel resultPanel = new JPanel(new GridLayout(2, 2));
+        resultPanel.add(new JLabel("Стоимость:"));
+        costJLabel = new JLabel();
+        resultPanel.add(costJLabel);
+        resultPanel.add(new JLabel("Пройденный путь:"));
+        distanceJLabel = new JLabel();
+        resultPanel.add(distanceJLabel);
+        add(resultPanel);
     }
 
-    private int convertToInteger(String s) {
-        return Integer.parseInt(s);
+    private Integer convertToInteger(String s) {
+        try {
+            return Integer.parseInt(s);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, ONLY_INTEGER_MESSAGE);
+        }
+        return null;
     }
 
-    private void showAvailableProducts() {
+    private void buildShoppingList() {
+        Integer x = convertToInteger(xJTextField.getText());
+        Integer y = convertToInteger(yJTextField.getText());
+        if (x == null && y == null) {
+            return;
+        }
+        if (minCostJRadioButton.isSelected()) {
+            shoppingList.setOptimizationParameter(ShoppingList.OptimizationParameter.COST);
+        } else if (minDistanceJRadioButton.isSelected()) {
+            shoppingList.setOptimizationParameter(ShoppingList.OptimizationParameter.DISTANCE);
+        }
+
+        Set<Product> products = new HashSet<Product>();
+        Object[] selectedValues = productCodesJList.getSelectedValues();
+        if (selectedValues.length < 1) {
+            JOptionPane.showMessageDialog(this, PRODUCT_REQUIRED_MESSAGE);
+            return;
+        }
+        for (Object o : selectedValues) {
+            String productCode = (String) o;
+            products.add(new Product(productCode));
+        }
+        shoppingList.setProducts(products);
+        planner.getPlannerContext().setShoppingList(shoppingList);
 
     }
 }
