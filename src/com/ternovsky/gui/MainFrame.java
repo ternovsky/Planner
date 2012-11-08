@@ -3,8 +3,6 @@ package com.ternovsky.gui;
 import com.ternovsky.Planner;
 
 import javax.swing.*;
-import java.awt.*;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,16 +13,24 @@ import java.util.Set;
  */
 public class MainFrame extends JFrame {
 
-    public static final int HEIGHT = 700;
-    public static final int WIDTH = 900;
+    private static final int HEIGHT = 700;
+    private static final int WIDTH = 1000;
+
     protected Planner planner = new Planner();
+    protected final ChartPanel chartPanel;
+    protected final ControlPanel controlPanel;
 
     public MainFrame() {
         setTitle("Планировщик покупок");
         setSize(WIDTH, HEIGHT);
-        ControlPanel controlPanel = new ControlPanel(this);
-        add(controlPanel, BorderLayout.EAST);
-        ChartPanel chartPanel = new ChartPanel();
-        add(chartPanel, BorderLayout.CENTER);
+        setResizable(false);
+        setLayout(null);
+        chartPanel = new ChartPanel(this);
+        add(chartPanel);
+        controlPanel = new ControlPanel(this);
+        controlPanel.setBounds(700, 0, 300, 700);
+        add(controlPanel);
     }
+
+
 }

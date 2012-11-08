@@ -17,6 +17,8 @@ public class ShoppingList {
 
     public ShoppingList() {
         products = new HashSet<Product>();
+        coordinates = new Coordinates();
+        optimizationParameter = OptimizationParameter.COST;
     }
 
     public Coordinates getCoordinates() {

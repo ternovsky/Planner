@@ -17,7 +17,6 @@ public class ObjectStorage {
     private Map<String, Shop> lowCostProductCodeShop;
     private Map<String, Product> lowCostProductCodeProduct;
     private Map<String, Set<Shop>> productCodeShop;
-    private Set<String> availableProductCodes;
 
     public ObjectStorage() {
         lowCostProductCodeShop = new HashMap<String, Shop>();
@@ -25,7 +24,7 @@ public class ObjectStorage {
         productCodeShop = new HashMap<String, Set<Shop>>();
     }
 
-    public Set<String> orderedProductCodes() {
+    public Set<String> orderedProductCodesByAlphabet() {
         return new TreeSet<String>(productCodeShop.keySet());
     }
 
