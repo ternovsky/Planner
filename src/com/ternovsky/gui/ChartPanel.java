@@ -80,7 +80,7 @@ public class ChartPanel extends JPanel {
 
     private void addShop(Shop shop) {
         Coordinates coordinates = convertToNewCoordinates(shop.getCoordinates());
-        ChartPoint chartPoint = new ChartPoint(coordinates.getX(), coordinates.getY());
+        ChartPoint chartPoint = new ChartPoint(shop, mainFrame, coordinates.getX(), coordinates.getY(), Color.RED);
         add(chartPoint);
     }
 
@@ -120,7 +120,6 @@ public class ChartPanel extends JPanel {
         ArrowComponent arrowComponent = new ArrowComponent(prevCoordinates, initialCoordinates);
         arrowComponents.add(arrowComponent);
         add(arrowComponent);
-        repaint();
     }
 
     @Override

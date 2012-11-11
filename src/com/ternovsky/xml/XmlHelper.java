@@ -110,6 +110,7 @@ public class XmlHelper {
 
     public static void writeShoppingPlan(File file, Planner planner) throws XMLStreamException, IOException {
         ShoppingPlan shoppingPlan = planner.getPlannerContext().getShoppingPlan();
+        file.delete();
 
         FileWriter fileWriter = new FileWriter(file);
         XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();

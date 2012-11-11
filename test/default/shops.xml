@@ -6,8 +6,7 @@
         <name>Food Lion</name>
         <coordinates x="100" y="50"/>
         <products>
-
-            <product code="sausage" price="170">Sausage</product>
+            <product code="sausage" price="150">Sausage</product>
             <product code="bacon" price="400">Bacon</product>
             <product code="spam" price="99.90">Spam</product>
         </products>
@@ -35,6 +34,7 @@
         <name>Bottom Dollar Food</name>
         <coordinates x="50" y="-50"/>
         <products>
+            <product code="bread" price="50">Bread</product>
             <product code="eggs" price="200">Eggs</product>
             <product code="spam" price="49.90">Spam</product>
         </products>

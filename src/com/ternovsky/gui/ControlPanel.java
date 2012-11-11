@@ -1,10 +1,7 @@
 package com.ternovsky.gui;
 
 import com.ternovsky.Planner;
-import com.ternovsky.domain.Coordinates;
-import com.ternovsky.domain.Product;
-import com.ternovsky.domain.ShoppingList;
-import com.ternovsky.domain.ShoppingPlan;
+import com.ternovsky.domain.*;
 import com.ternovsky.xml.XmlHelper;
 
 import javax.swing.*;
@@ -17,8 +14,10 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created with IntelliJ IDEA.
@@ -50,6 +49,8 @@ public class ControlPanel extends JPanel {
     private final ButtonGroup purposeButtonGroup;
     private final JLabel costJLabel;
     private final JLabel distanceJLabel;
+    private final JList productsJList;
+    private final JLabel shopInfoJlabel;
 
     public ControlPanel(final MainFrame mainFrame) {
         shoppingList = new ShoppingList();
@@ -171,6 +172,36 @@ public class ControlPanel extends JPanel {
         distanceJLabel = new JLabel();
         resultPanel.add(distanceJLabel);
         add(resultPanel);
+
+        JPanel shopInfoJPanel = new JPanel(new GridLayout(2, 1));
+        shopInfoJlabel = new JLabel("Информация о магазине (Кликнете по магазину) ");
+        shopInfoJPanel.add(shopInfoJlabel);
+        productsJList = new JList();
+        shopInfoJPanel.add(new JScrollPane(productsJList));
+        add(shopInfoJPanel);
+    }
+
+    protected void showShopInfo(Shop shop) {
+        ShoppingPlan shoppingPlan = planner.getPlannerContext().getShoppingPlan();
+        shopInfoJlabel.setText("Магазин " + shop);
+        if (shoppingPlan == null) {
+            productsJList.setListData(shop.getProducts().toArray());
+        } else {
+            Set<String> bought = new TreeSet<String>();
+            Set<String> notBought = new TreeSet<String>();
+            for (Product product : shop.getProducts()) {
+                Set<Product> productsByShop = shoppingPlan.getProductsByShop(shop);
+                if (productsByShop != null && productsByShop.contains(product)) {
+                    bought.add(" + " + product);
+                } else {
+                    notBought.add(product.toString());
+                }
+            }
+            ArrayList<String> productInfo = new ArrayList<String>(bought.size() + notBought.size());
+            productInfo.addAll(bought);
+            productInfo.addAll(notBought);
+            productsJList.setListData(productInfo.toArray());
+        }
     }
 
     private Integer convertToInteger(String s) {

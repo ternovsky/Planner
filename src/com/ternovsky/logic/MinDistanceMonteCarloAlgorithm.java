@@ -25,7 +25,6 @@ public class MinDistanceMonteCarloAlgorithm {
 
     private Set<Shop> necessaryShops = new HashSet<Shop>();
 
-
     public MinDistanceMonteCarloAlgorithm(Planner planner) {
         plannerContext = planner.getPlannerContext();
         objectStorage = planner.getObjectStorage();
@@ -133,16 +132,18 @@ public class MinDistanceMonteCarloAlgorithm {
     public void buildShoppingPlan() {
         findNecessaryShops();
 
-        Set<Product> necessaryProducts = shoppingList.getProducts();
-        Set<Shop> necessaryShops = this.necessaryShops;
+        Set<Product> necessaryProducts = new HashSet<Product>(shoppingList.getProducts());
+        Set<Shop> necessaryShops = new HashSet<Shop>(this.necessaryShops);
 
         Map<Integer, Set<Shop>> initialKpiShops = findShops(shoppingList.getCoordinates(), necessaryProducts, necessaryShops);
         int minKpi = initialKpiShops.keySet().iterator().next();
         Set<Shop> minKpiShops = new HashSet<Shop>(initialKpiShops.get(minKpi));
 
-        RandomShopGenerator randomShopGenerator = new RandomShopGenerator(necessaryShops);
-        int iterationCount = necessaryShops.size() / 3;
+        RandomShopGenerator randomShopGenerator = new RandomShopGenerator(this.necessaryShops);
+        int iterationCount = this.necessaryShops.size();
         for (int i = 0; i < iterationCount; i++) {
+            necessaryShops = new HashSet<Shop>(this.necessaryShops);
+            necessaryProducts = new HashSet<Product>(shoppingList.getProducts());
             Shop shop = randomShopGenerator.randomShop();
             Map<Integer, Set<Shop>> kpiShops = findShops(shop, necessaryProducts, necessaryShops);
             int kpi = kpiShops.keySet().iterator().next();
@@ -162,9 +163,9 @@ public class MinDistanceMonteCarloAlgorithm {
         Coordinates currentCoordinates = startCoordinates;
         float totalCost = 0;
         int totalDistance = 0;
+        Set<Product> shoppingListProducts = new HashSet<Product>(shoppingList.getProducts());
         while (!shops.isEmpty()) {
             Map<Shop, Integer> shopDistanceMap = nearestShopDistance(currentCoordinates, shops);
-            Set<Product> shoppingListProducts = new HashSet<Product>(shoppingList.getProducts());
             Shop shop = shopDistanceMap.keySet().iterator().next();
             for (Product product : shop.getProducts()) {
                 if (!shoppingListProducts.isEmpty() && shoppingListProducts.contains(product)) {
@@ -209,7 +210,12 @@ public class MinDistanceMonteCarloAlgorithm {
         }
 
         private Shop randomShop() {
-            return shops.remove(random.nextInt(shops.size() - 1));
+            int size = shops.size();
+            if (size > 1) {
+                return shops.remove(random.nextInt(size - 1));
+            } else {
+                return shops.iterator().next();
+            }
         }
     }
 }

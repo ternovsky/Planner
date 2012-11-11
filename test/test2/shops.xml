@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE shops SYSTEM "shops.dtd">
+
+<shops>
+	<shop id="No1">
+		<name>Food Lion</name>
+		<coordinates x="100" y="50" />
+		<products>
+			<product code="eggs" price="200">Eggs</product>
+			<product code="sausage" price="150">Sausage</product>
+			<product code="bacon" price="400">Bacon</product>
+			<product code="spam" price="99.90">Spam</product>
+		</products>
+	</shop>
+	<shop id="No2">
+		<name>Bottom Dollar Food</name> 
+		<coordinates x="-100" y="-200" />
+		<products>
+			<product code="sausage" price="150">Sausage</product>
+			<product code="bacon" price="500">Bacon</product>
+			<product code="spam" price="49.90">Spam</product>
+		</products>
+	</shop>
+	
+		<shop id="No3">
+		<name>No3</name>
+		<coordinates x="200" y="50" />
+		<products>
+			<product code="eggs" price="200">Eggs</product>
+			<product code="sausage" price="150">Sausage</product>
+			<product code="bacon" price="400">Bacon</product>
+			<product code="spam" price="99.90">Spam</product>
+		</products>
+	</shop>
+	<shop id="No4">
+		<name>No4</name> 
+		<coordinates x="-200" y="-200" />
+		<products>
+			<product code="sausage" price="150">Sausage</product>
+			<product code="bacon" price="500">Bacon</product>
+			<product code="spam" price="49.90">Spam</product>
+		</products>
+	</shop>
+	
+		<shop id="No5">
+		<name>No5</name>
+		<coordinates x="600" y="150" />
+		<products>
+			<product code="eggs" price="200">Eggs</product>
+			<product code="sausage" price="150">Sausage</product>
+			<product code="bacon" price="400">Bacon</product>
+			<product code="spam" price="99.90">Spam</product>
+		</products>
+	</shop>
+	<shop id="No6">
+		<name>No6</name> 
+		<coordinates x="-700" y="-900" />
+		<products>
+			<product code="sausage" price="150">Sausage</product>
+			<product code="bacon" price="500">Bacon</product>
+			<product code="spam" price="49.90">Spam</product>
+		</products>
+	</shop>
+	
+		<shop id="No7">
+		<name>No7</name>
+		<coordinates x="300" y="250" />
+		<products>
+			<product code="eggs" price="200">Eggs</product>
+			<product code="sausage" price="150">Sausage</product>
+			<product code="bacon" price="400">Bacon</product>
+			<product code="spam" price="99.90">Spam</product>
+		</products>
+	</shop>
+	<shop id="No8">
+		<name>No8</name> 
+		<coordinates x="-150" y="0" />
+		<products>
+			<product code="sausage" price="150">Sausage</product>
+			<product code="bacon" price="500">Bacon</product>
+			<product code="spam" price="49.90">Spam</product>
+		</products>
+	</shop>
+	
+		<shop id="No9">
+		<name>No9</name>
+		<coordinates x="-40" y="-50" />
+		<products>
+			<product code="eggs" price="200">Eggs</product>
+			<product code="sausage" price="150">Sausage</product>
+			<product code="bacon" price="400">Bacon</product>
+			<product code="spam" price="99.90">Spam</product>
+		</products>
+	</shop>
+	<shop id="No10">
+		<name>No10</name> 
+		<coordinates x="-300" y="-270" />
+		<products>
+			<product code="sausage" price="150">Sausage</product>
+			<product code="bacon" price="500">Bacon</product>
+			<product code="spam" price="49.90">Spam</product>
+		</products>
+	</shop>
+	
+		<shop id="No11">
+		<name>No11</name>
+		<coordinates x="310" y="-150" />
+		<products>
+			<product code="eggs" price="200">Eggs</product>
+			<product code="sausage" price="150">Sausage</product>
+			<product code="bacon" price="400">Bacon</product>
+			<product code="spam" price="99.90">Spam</product>
+		</products>
+	</shop>
+	<shop id="No12">
+		<name>No12</name> 
+		<coordinates x="-300" y="-200" />
+		<products>
+			<product code="sausage" price="150">Sausage</product>
+			<product code="bacon" price="500">Bacon</product>
+			<product code="spam" price="49.90">Spam</product>
+		</products>
+	</shop>
+	
+		<shop id="No13">
+		<name>No13</name>
+		<coordinates x="180" y="540" />
+		<products>
+			<product code="eggs" price="200">Eggs</product>
+			<product code="sausage" price="150">Sausage</product>
+			<product code="bacon" price="400">Bacon</product>
+			<product code="spam" price="99.90">Spam</product>
+		</products>
+	</shop>
+	<shop id="No14">
+		<name>No14</name> 
+		<coordinates x="-400" y="-250" />
+		<products>
+			<product code="sausage" price="150">Sausage</product>
+			<product code="bacon" price="500">Bacon</product>
+			<product code="spam" price="49.90">Spam</product>
+		</products>
+	</shop>
+	
+	<shop id="No15">
+		<name>No15</name>
+		<coordinates x="100" y="-50" />
+		<products>
+			<product code="eggs" price="200">Eggs</product>
+			<product code="sausage" price="150">Sausage</product>
+			<product code="bacon" price="400">Bacon</product>
+			<product code="spam" price="99.90">Spam</product>
+		</products>
+	</shop>
+	<shop id="No16">
+		<name>No16</name> 
+		<coordinates x="-100" y="220" />
+		<products>
+			<product code="sausage" price="150">Sausage</product>
+			<product code="bacon" price="500">Bacon</product>
+			<product code="spam" price="49.90">Spam</product>
+		</products>
+	</shop>
+	
+		<shop id="No17">
+		<name>No17</name>
+		<coordinates x="-300" y="-250" />
+		<products>
+			<product code="eggs" price="200">Eggs</product>
+			<product code="sausage" price="150">Sausage</product>
+			<product code="bacon" price="400">Bacon</product>
+			<product code="spam" price="99.90">Spam</product>
+		</products>
+	</shop>
+	<shop id="No18">
+		<name>No18</name> 
+		<coordinates x="-420" y="-420" />
+		<products>
+			<product code="sausage" price="150">Sausage</product>
+			<product code="bacon" price="500">Bacon</product>
+			<product code="spam" price="49.90">Spam</product>
+		</products>
+	</shop>
+	
+		<shop id="No19">
+		<name>No19</name>
+		<coordinates x="110" y="-160" />
+		<products>
+			<product code="eggs" price="200">Eggs</product>
+			<product code="sausage" price="150">Sausage</product>
+			<product code="bacon" price="400">Bacon</product>
+			<product code="spam" price="99.90">Spam</product>
+		</products>
+	</shop>
+	<shop id="No20">
+		<name>No20</name> 
+		<coordinates x="-600" y="220" />
+		<products>
+			<product code="sausage" price="150">Sausage</product>
+			<product code="bacon" price="500">Bacon</product>
+			<product code="spam" price="49.90">Spam</product>
+		</products>
+	</shop>
+</shops>

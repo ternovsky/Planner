@@ -62,6 +62,12 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product code: " + code + "-" + name + ":" + price;
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(name);
+        stringBuilder.append("[");
+        stringBuilder.append(code);
+        stringBuilder.append("] - ");
+        stringBuilder.append(price);
+        return stringBuilder.toString();
     }
 }

@@ -54,6 +54,16 @@ public class Shop {
 
     @Override
     public String toString() {
-        return "Shop: " + id + "-" + name + " (" + coordinates.getX() + ", " + coordinates.getY() + ")";
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(name);
+        stringBuilder.append("[");
+        stringBuilder.append(id);
+        stringBuilder.append("] ");
+        stringBuilder.append("(");
+        stringBuilder.append(coordinates.getX());
+        stringBuilder.append(", ");
+        stringBuilder.append(coordinates.getY());
+        stringBuilder.append(")");
+        return stringBuilder.toString();
     }
 }

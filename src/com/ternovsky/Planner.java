@@ -51,10 +51,10 @@ public class Planner {
             MinCostAlgorithm algorithm = new MinCostAlgorithm(this);
             algorithm.buildShoppingPlan();
         } else if (optimizationParameter == ShoppingList.OptimizationParameter.DISTANCE) {
-            MinDistanceAlgorithm algorithm = new MinDistanceAlgorithm(this);
-            algorithm.buildShoppingPlan();
-//            MinDistanceMonteCarloAlgorithm carloAlgorithm = new MinDistanceMonteCarloAlgorithm(this);
-//            carloAlgorithm.buildShoppingPlan();
+//            MinDistanceAlgorithm algorithm = new MinDistanceAlgorithm(this);
+//            algorithm.buildShoppingPlan();
+            MinDistanceMonteCarloAlgorithm carloAlgorithm = new MinDistanceMonteCarloAlgorithm(this);
+            carloAlgorithm.buildShoppingPlan();
         }
     }
 }
