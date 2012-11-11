@@ -21,7 +21,7 @@ public class Main {
     public static final String SHOPPING_PLAN_XML = "C:\\Users\\ternovsky\\Documents\\GitHub\\Planner\\shopping-plan.xml";
 
     public static void main(String[] args) throws XMLStreamException, IOException {
-        if (args.length == 0) {
+        if (args.length != 0) {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {

@@ -28,6 +28,10 @@ public class ObjectStorage {
         return new TreeSet<String>(productCodeShop.keySet());
     }
 
+    public Map<String, Set<Shop>> getProductCodeShop() {
+        return productCodeShop;
+    }
+
     public void add(Shop shop, Product product) {
         String productCode = product.getCode();
         Product lowCostProduct = lowCostProductCodeProduct.get(productCode);

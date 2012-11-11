@@ -22,4 +22,21 @@
             <product code="spam" price="49.90">Spam</product>
         </products>
     </shop>
+    <shop id="No3">
+        <name>Fruit Shop</name>
+        <coordinates x="100" y="200"/>
+        <products>
+            <product code="kiwi" price="120">Kiwi</product>
+            <product code="orange" price="100">Orange</product>
+            <product code="cranberry" price="350">Cranberry</product>
+        </products>
+    </shop>
+    <shop id="No4">
+        <name>Bottom Dollar Food</name>
+        <coordinates x="50" y="-50"/>
+        <products>
+            <product code="eggs" price="200">Eggs</product>
+            <product code="spam" price="49.90">Spam</product>
+        </products>
+    </shop>
 </shops>

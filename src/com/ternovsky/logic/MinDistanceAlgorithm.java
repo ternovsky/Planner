@@ -119,49 +119,4 @@ public class MinDistanceAlgorithm {
         int y2 = coordinates2.getY();
         return abs(x1 - x2) + abs(y1 - y2);
     }
-
-    //    public Map<Shop, Set<Product>> findShops() {
-//        Map<Shop, Float> shopWeight = new HashMap<Shop, Float>();
-//        Set<Shop> orderedShopByWeight = new TreeSet<Shop>();
-//
-//        Map<Shop, Set<Product>> shopNecessaryProduct = new HashMap<Shop, Set<Product>>();
-//        Set<Product> necessaryProducts = plannerContext.getShoppingList().getProducts();
-//        for (Product necessaryProduct : necessaryProducts) {
-//            for (Shop shop : plannerContext.getShops()) {
-//                for (Product product : shop.getProducts()) {
-//                    if (product.getCode().equals(necessaryProduct.getCode())) {
-//                        Set<Product> products = shopNecessaryProduct.get(shop);
-//                        if (products == null) {
-//                            products = new HashSet<Product>();
-//                            products.add(product);
-//                            shopNecessaryProduct.put(shop, products);
-//                        } else {
-//                            products.add(product);
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//
-//        for (Shop shop : shopNecessaryProduct.keySet()) {
-//            float necessaryProductCount = necessaryProducts.size();
-//            float necessaryProductCountInShop = shopNecessaryProduct.get(shop).size();
-//            shopWeight.put(shop, (necessaryProductCountInShop / necessaryProductCount + (1 - productsUniqueness(shop))) / 2);
-//        }
-//
-//        int shopCount = plannerContext.getShops().size();
-//        return null;
-//    }
-//
-//    private float productsUniqueness(Shop shop) {
-//        float productsUniqueness = 0;
-//        float shopCount = plannerContext.getShops().size();
-//        for (Product product : shop.getProducts()) {
-//            float availableShopCount = objectStorage.getShops(product.getCode()).size();
-//            productsUniqueness += availableShopCount / shopCount;
-//        }
-//        productsUniqueness /= shop.getProducts().size();
-//        return productsUniqueness;
-//    }
-
 }

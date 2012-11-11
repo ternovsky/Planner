@@ -4,8 +4,8 @@
 <shoppingList>
     <coordinates x="50" y="50"/>
     <parameters>
-        <cost>MIN</cost>
-        <!--<distance>MIN</distance>-->
+        <!--<cost>MIN</cost>-->
+        <distance>MIN</distance>
     </parameters>
     <products>
         <!--<product code="spam">Spam</product>-->
