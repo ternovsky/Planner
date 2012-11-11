@@ -48,4 +48,9 @@ public class ShoppingList {
     public enum OptimizationParameter {
         COST, DISTANCE
     }
+
+    public void clear() {
+        products.clear();
+        coordinates = new Coordinates();
+    }
 }

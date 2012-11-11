@@ -67,4 +67,9 @@ public class ShoppingPlan {
     public Set<Product> getProductsByShop(Shop shop) {
         return shopProducts.get(shop);
     }
+
+    public void clear() {
+        shops.clear();
+        shopProducts.clear();
+    }
 }

@@ -34,6 +34,7 @@ public class ControlPanel extends JPanel {
     public static final String MIN_COST = "Минимизировать стоимость покупки";
     public static final String ONLY_INTEGER_MESSAGE = "В качестве координат допустимо использовать только целые числа";
     public static final String PRODUCT_REQUIRED_MESSAGE = "Загрузите список магазинов и выберите хотя бы один продукт";
+    public static final String XML_FORMAT_MESSAGE = "Файл xml имеет неверный формат";
     protected Planner planner;
     protected JButton shopsJButton;
     protected JFileChooser shopsJFileChooser;
@@ -70,13 +71,15 @@ public class ControlPanel extends JPanel {
                 int result = shopsJFileChooser.showDialog(shopsJFileChooser.getParent(), "Выбрать");
                 if (result == JFileChooser.APPROVE_OPTION) {
                     try {
+                        planner.clear();
                         XmlHelper.readShops(shopsJFileChooser.getSelectedFile(), planner);
                         productCodesJList.setListData(planner.getObjectStorage().orderedProductCodesByAlphabet().toArray());
+                        mainFrame.chartPanel.changeInitialCoordinates();
                         mainFrame.chartPanel.showChart();
                     } catch (FileNotFoundException e1) {
-                        e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+
                     } catch (XMLStreamException e1) {
-                        e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                        JOptionPane.showMessageDialog(null, XML_FORMAT_MESSAGE);
                     }
                 }
             }
@@ -105,7 +108,9 @@ public class ControlPanel extends JPanel {
                 if (x != null && prevX != x) {
                     Integer y = convertToInteger(yJTextField.getText());
                     if (y != null) {
-                        shoppingList.setCoordinates(new Coordinates(x, y));
+                        Coordinates coordinates = new Coordinates(x, y);
+                        shoppingList.setCoordinates(coordinates);
+                        planner.getObjectStorage().setInitialCoordinates(coordinates);
                         planner.getPlannerContext().setShoppingList(shoppingList);
                         mainFrame.chartPanel.changeInitialCoordinates();
                         prevX = x;
@@ -127,7 +132,9 @@ public class ControlPanel extends JPanel {
                 if (y != null && prevY != y) {
                     Integer x = convertToInteger(xJTextField.getText());
                     if (x != null) {
-                        shoppingList.setCoordinates(new Coordinates(x, y));
+                        Coordinates coordinates = new Coordinates(x, y);
+                        shoppingList.setCoordinates(coordinates);
+                        planner.getObjectStorage().setInitialCoordinates(coordinates);
                         planner.getPlannerContext().setShoppingList(shoppingList);
                         mainFrame.chartPanel.changeInitialCoordinates();
                         prevY = y;

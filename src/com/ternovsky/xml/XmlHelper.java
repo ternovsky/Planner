@@ -91,6 +91,7 @@ public class XmlHelper {
                     coordinates.setX(Integer.parseInt(xmlStreamReader.getAttributeValue(0)));
                     coordinates.setY(Integer.parseInt(xmlStreamReader.getAttributeValue(1)));
                     shoppingList.setCoordinates(coordinates);
+                    planner.getObjectStorage().setInitialCoordinates(coordinates);
                 } else if (localName.equals(COST)) {
                     shoppingList.setOptimizationParameter(ShoppingList.OptimizationParameter.COST);
                 } else if (localName.equals(DISTANCE)) {

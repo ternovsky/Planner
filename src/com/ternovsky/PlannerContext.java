@@ -49,5 +49,11 @@ public class PlannerContext {
         this.shoppingPlan = shoppingPlan;
     }
 
-
+    public void clear() {
+        shops.clear();
+        shoppingList.clear();
+        if (shoppingPlan != null) {
+            shoppingPlan.clear();
+        }
+    }
 }

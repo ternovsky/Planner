@@ -36,7 +36,7 @@ public class ChartPanel extends JPanel {
 
     public ChartPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
-        planner = this.mainFrame.planner;
+        planner = mainFrame.planner;
         setBackground(Color.WHITE);
         setLayout(null);
         setSize(WIDTH, HEIGHT);

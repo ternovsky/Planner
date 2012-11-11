@@ -24,8 +24,7 @@ public class Main {
     public static final String SHOPPING_PLAN_XML = BASE_PATH + "shopping-plan.xml";
 
     public static void main(String[] args) throws XMLStreamException, IOException {
-//        int argsCount = args.length;
-        int argsCount = 0;
+        int argsCount = args.length;
         if (argsCount == 0) {
             EventQueue.invokeLater(new Runnable() {
                 @Override

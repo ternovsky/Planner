@@ -2,7 +2,6 @@ package com.ternovsky;
 
 import com.ternovsky.domain.ShoppingList;
 import com.ternovsky.logic.MinCostAlgorithm;
-import com.ternovsky.logic.MinDistanceAlgorithm;
 import com.ternovsky.logic.MinDistanceMonteCarloAlgorithm;
 import com.ternovsky.xml.XmlHelper;
 
@@ -51,10 +50,13 @@ public class Planner {
             MinCostAlgorithm algorithm = new MinCostAlgorithm(this);
             algorithm.buildShoppingPlan();
         } else if (optimizationParameter == ShoppingList.OptimizationParameter.DISTANCE) {
-//            MinDistanceAlgorithm algorithm = new MinDistanceAlgorithm(this);
-//            algorithm.buildShoppingPlan();
             MinDistanceMonteCarloAlgorithm carloAlgorithm = new MinDistanceMonteCarloAlgorithm(this);
             carloAlgorithm.buildShoppingPlan();
         }
+    }
+
+    public void clear() {
+        plannerContext.clear();
+        objectStorage.clear();
     }
 }
