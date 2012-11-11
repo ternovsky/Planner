@@ -113,9 +113,8 @@ public class XmlHelper {
         ShoppingPlan shoppingPlan = planner.getPlannerContext().getShoppingPlan();
         file.delete();
 
-        FileWriter fileWriter = new FileWriter(file);
         XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
-        XMLStreamWriter writer = xmlOutputFactory.createXMLStreamWriter(fileWriter);
+        XMLStreamWriter writer = xmlOutputFactory.createXMLStreamWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
         writer.writeStartDocument(ENCODING, VERSION);
         writer.writeCharacters("\n");
         writer.writeDTD(DTD);
@@ -168,7 +167,5 @@ public class XmlHelper {
         writer.writeCharacters("\n");
         writer.writeEndDocument();
         writer.close();
-
-        fileWriter.close();
     }
 }
